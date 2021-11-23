@@ -8,24 +8,46 @@ channel = int(CHANNEL)
 from_group = int(GROUP)
 to_channel = int(TO_CHANNEL)
 to_group = int(TO_GROUP)
+file_groups = []
 
 
 # from_group = int(GROUP)
 # print(from_group)
 @Client.on_message(filters.group & filters.chat(from_group))
 async def group_saver(client, message):
-    try:
-        await Client.copy_message(client, chat_id=to_group, from_chat_id=from_group, message_id=message.message_id)
-    except FloodWait as e:
-        await asyncio.sleep(e.x + 1)
-        group_saver(client, message)
+    global file_groups
+    if message.media_group_id:
+        if message.media_group_id in file_groups:
+            return
+        else:
+            file_groups.append(message.media_group_id)
+
+        messages = await message.get_media_group()
+        for message in messages:
+            await copy_message(message, to_group)
+    else:
+        await copy_message(message, to_group)
 
 
 @Client.on_message(filters.channel & filters.chat(channel))
 async def channel_saver(client, message):
+    global file_groups
+    if message.media_group_id:
+        if message.media_group_id in file_groups:
+            return
+        else:
+            file_groups.append(message.media_group_id)
+
+        messages = await message.get_media_group()
+    for message in messages:
+            await copy_message(message, to_channel)
+    else:
+        await copy_message(message, to_channel)
+
+
+async def copy_message(message, chat_id):
     try:
-        await Client.copy_message(client, chat_id=to_channel, from_chat_id=channel, message_id=message.message_id)
+        await message.copy(chat_id)
     except FloodWait as e:
         await asyncio.sleep(e.x + 1)
-        channel_saver(client, message)
-
+        await copy_message(message, chat_id)
