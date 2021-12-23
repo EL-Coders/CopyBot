@@ -1,1 +1,1 @@
-BotzHub: python -m CopyBot
+python -m CopyBot

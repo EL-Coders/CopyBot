@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
-from PyroBot import CHANNEL, GROUP, TO_CHANNEL, TO_GROUP
+from CopyBot import CHANNEL, GROUP, TO_CHANNEL, TO_GROUP
 
 
 

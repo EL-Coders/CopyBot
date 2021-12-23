@@ -1,11 +1,11 @@
 import pyrogram
 from pyrogram import Client
-from PyroBot import APP_ID, API_HASH, SESSION
+from CopyBot import APP_ID, API_HASH, SESSION
 
 
 if __name__ == "__main__":
     print("Starting Bot...")
-    plugins = dict(root="PyroBot/plugins")
+    plugins = dict(root="CopyBot/plugins")
     app = Client(
         SESSION,
         api_id=APP_ID,
