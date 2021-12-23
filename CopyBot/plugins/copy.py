@@ -39,7 +39,7 @@ async def channel_saver(client, message):
             file_groups.append(message.media_group_id)
 
         messages = await message.get_media_group()
-    for message in messages:
+        for message in messages:
             await copy_message(message, to_channel)
     else:
         await copy_message(message, to_channel)
