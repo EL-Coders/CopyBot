@@ -19,8 +19,9 @@ import asyncio
 
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
+from sqlite3 import OperationalError
 
-from copybot.db.db import get_dest_by_source, get_source_channels
+from copybot.db.db import get_dest_by_source, get_source_channels, init_database
 
 SOURCE_CHATS = []
 file_groups = []
@@ -29,7 +30,10 @@ file_groups = []
 async def get_source():
     global SOURCE_CHATS
     while True:
-        SOURCE_CHATS = await get_source_channels()
+        try:
+            SOURCE_CHATS = await get_source_channels()
+        except OperationalError:
+            init_database()
         await asyncio.sleep(60)
 
 

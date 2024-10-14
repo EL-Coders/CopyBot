@@ -33,11 +33,11 @@ async def add_chat_handler(client, message):
         if add:
             if add == "exists":
                 await message.reply_text(
-                    f"Chat already exists: {source_chat_id} with destination: {dest_chat_id}"
+                    f"Chat already exists: `{source_chat_id}` with destination: `{dest_chat_id}`"
                 )
                 return
             await message.reply_text(
-                f"Chat added: Source: {source_chat_id}, Destination: {dest_chat_id}"
+                f"Chat Added: Source: `{source_chat_id}` - Destination: `{dest_chat_id}`"
             )
         else:
             message.reply_text("Some error occured while adding chat")
@@ -54,11 +54,11 @@ async def delete_chat_handler(client, message):
         if rem:
             if rem == "not found":
                 await message.reply_text(
-                    f"Source: {source_chat_id} with destination: {dest_chat_id} not found."
+                    f"Source: `{source_chat_id}` with destination: `{dest_chat_id}` not found."
                 )
                 return
             await message.reply_text(
-                f"Chat deleted: Source: {source_chat_id}, Destination: {dest_chat_id}"
+                f"Chat Deleted: Source: `{source_chat_id}` - Destination: `{dest_chat_id}`"
             )
         else:
             message.reply_text("Some error occured while removing chat")
@@ -76,7 +76,7 @@ async def get_all_chats_handler(client, message):
 
         response = "**Active Chats:**\n"
         for source, destination in chats:
-            response += f"**Source:** `{source}`, **Destination:** `{destination}`\n"
+            response += f"**Source:** `{source}` - **Destination:** `{destination}`\n"
         await message.reply(response)
     except Exception as e:
         await message.reply(f"An error occurred: {str(e)}")
