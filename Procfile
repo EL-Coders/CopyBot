@@ -1,1 +1,1 @@
-worker: python3 -m CopyBot
+worker: python3 -m copybot
